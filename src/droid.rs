@@ -1,6 +1,7 @@
 use super::{Character, Episode, StarWars};
 use async_graphql::{Context, Object};
 
+/// 机器人
 pub struct Droid(pub usize);
 
 #[Object]

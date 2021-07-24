@@ -1,6 +1,7 @@
 use super::{Character, Episode, StarWars};
 use async_graphql::{Context, Object};
 
+/// 人类
 pub struct Human(pub usize);
 
 #[Object]
