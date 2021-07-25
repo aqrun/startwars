@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 use slab::Slab;
-use crate::{StarWarsChar, Episode};
+use crate::typings::{Episode};
+use crate::models::{StarWarsChar};
 
 ///
 /// 星球大战所有数据

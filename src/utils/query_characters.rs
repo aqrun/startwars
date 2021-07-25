@@ -1,56 +1,8 @@
 use async_graphql::{Object, Context, FieldResult};
 use async_graphql::connection::{query, Connection, Edge, EmptyFields};
-use super::{Episode, Human, Droid, StarWars, Character};
+use crate::{Episode, Human, Droid, StarWars, Character};
 
-pub struct QueryRoot;
-
-#[Object]
-impl QueryRoot {
-    async fn hero(
-        &self,
-        ctx: &Context<'_>,
-        #[graphql(
-            desc = "无值返回所有系列的角色，有值返回指定的系列角色"
-        )]
-        episode: Episode,
-    ) -> Character {
-        if episode == Episode::Empire {
-            Human(ctx.data_unchecked::<StarWars>().luke).into()
-        } else {
-            Droid(ctx.data_unchecked::<StarWars>().artoo).into()
-        }
-    }
-
-    async fn human(
-        &self,
-        ctx: &Context<'_>,
-        #[graphql(desc = "人类ID")]
-        id: String,
-    ) -> Option<Human> {
-        ctx.data_unchecked::<StarWars>().human(&id).map(Human)
-    }
-
-    async fn humans(
-        &self,
-        ctx: &Context<'_>,
-        after: Option<String>,
-        before: Option<String>,
-        first: Option<i32>,
-        last: Option<i32>,
-    ) -> FieldResult<Connection<usize, Human, EmptyFields, EmptyFields>> {
-        let humans = ctx
-            .data_unchecked::<StarWars>()
-            .humans()
-            .iter()
-            .copied()
-            .collect::<Vec<_>>();
-        query_characters(after, before, first, last, &humans)
-            .await
-            .map(|conn| conn.map_node(Human))
-    }
-}
-
-async fn query_characters(
+pub async fn query_characters(
     after: Option<String>,
     before: Option<String>,
     first: Option<i32>,

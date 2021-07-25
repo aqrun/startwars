@@ -2,14 +2,17 @@
 /// 星球大战
 ///
 
-pub mod common;
-pub mod human;
-pub mod droid;
-pub mod query_root;
-pub mod star_wars;
+mod run;
 
-pub use common::*;
-pub use human::*;
-pub use droid::*;
-pub use query_root::*;
-pub use star_wars::*;
+pub mod utils;
+pub mod typings;
+pub mod constants;
+pub mod gql;
+pub mod dbs;
+pub mod models;
+pub mod services;
+
+pub use run::*;
+pub use utils::G;
+
+
