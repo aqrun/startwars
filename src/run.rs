@@ -1,5 +1,4 @@
 use async_graphql::{Result};
-use async_graphql_tide::{endpoint};
 use tide::security::{CorsMiddleware, Origin};
 use tide::http::headers::HeaderValue;
 use crate::utils::G;

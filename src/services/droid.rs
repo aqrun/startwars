@@ -1,6 +1,6 @@
 use crate::dbs::StarWars;
 use crate::typings::{GqlResult};
-use crate::models::{Character, Droid};
+use crate::models::{Character};
 use async_graphql::Error;
 
 pub async fn get_droid_by_id(db: &StarWars, id: &str) -> GqlResult<Character> {

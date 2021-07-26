@@ -1,15 +1,24 @@
-use async_graphql::{Object, Context, FieldResult};
+use async_graphql::{FieldResult};
 use async_graphql::connection::{query, Connection, Edge, EmptyFields};
-use crate::typings::{Episode};
-use crate::models::{Human, Droid, Character};
+use crate::models::{StarWarsChar};
 use crate::dbs::StarWars;
 
+///
+/// 生成游标链接分页信息
+///
+/// 参考：
+///
+/// * [游标连接(Cursor Connections)](https://async-graphql.github.io/async-graphql/zh-CN/cursor_connections.html)
+/// * [GRAPHQL的分页](https://graphql.bootcss.com/learn/pagination/)
+/// * [GraphQL Cursor Connections Specification](https://relay.dev/graphql/connections.htm)
+///
+///
 pub async fn query_characters(
     after: Option<String>,
     before: Option<String>,
     first: Option<i32>,
     last: Option<i32>,
-    characters: &[usize],
+    ids: &Vec<usize>
 ) -> FieldResult<Connection<usize, usize, EmptyFields, EmptyFields>> {
     query(
         after,
@@ -18,11 +27,11 @@ pub async fn query_characters(
         last,
         |after, before, first, last| async move {
             let mut start = 0usize;
-            let mut end = characters.len();
+            let mut end = ids.len();
 
             // 如果有 after 参数 更新 start
             if let Some(after) = after {
-                if after >= characters.len() {
+                if after >= ids.len() {
                     return Ok(Connection::new(false, false));
                 }
                 start = after + 1;
@@ -36,7 +45,7 @@ pub async fn query_characters(
                 end = before;
             }
 
-            let mut slice = &characters[start..end];
+            let mut slice = &ids[start..end];
 
             // 如果有 first 参数
             if let Some(first) = first {
@@ -52,13 +61,15 @@ pub async fn query_characters(
 
             let mut connection = Connection::new(
                 start > 0,
-                end < characters.len()
+                end < ids.len()
             );
             connection.append(
                 slice
                     .iter()
                     .enumerate()
-                    .map(|(idx, item)| Edge::new(start + idx, *item)),
+                    .map(|(idx, item)| {
+                        Edge::new(start + idx, *item)
+                    }),
             );
             Ok(connection)
         },

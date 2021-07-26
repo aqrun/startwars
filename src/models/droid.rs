@@ -3,7 +3,6 @@ use async_graphql::{Object, Context};
 use crate::dbs::StarWars;
 use crate::typings::{Episode};
 use super::Character;
-use crate::services::droid::get_droid_by_id;
 
 /// 机器人
 #[derive(Serialize, Deserialize, Clone)]

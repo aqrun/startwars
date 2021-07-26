@@ -1,9 +1,9 @@
 use async_graphql::{Object, Context, FieldResult};
 use crate::typings::{GqlResult, Episode};
-use async_graphql::connection::{query, Connection, Edge, EmptyFields};
+use async_graphql::connection::{Connection, EmptyFields};
 use crate::dbs::StarWars;
 use crate::services;
-use crate::models::{Droid, Human, Character};
+use crate::models::{Character};
 
 pub struct QueryRoot;
 
@@ -40,22 +40,15 @@ impl QueryRoot {
         services::human::get_human_by_id(db, &id).await
     }
 
-    // async fn humans(
-    //     &self,
-    //     ctx: &Context<'_>,
-    //     after: Option<String>,
-    //     before: Option<String>,
-    //     first: Option<i32>,
-    //     last: Option<i32>,
-    // ) -> FieldResult<Connection<usize, Human, EmptyFields, EmptyFields>> {
-    //     let humans = ctx
-    //         .data_unchecked::<StarWars>()
-    //         .humans()
-    //         .iter()
-    //         .copied()
-    //         .collect::<Vec<_>>();
-    //     query_characters(after, before, first, last, &humans)
-    //         .await
-    //         .map(|conn| conn.map_node(Human))
-    // }
+    async fn humans(
+        &self,
+        ctx: &Context<'_>,
+        after: Option<String>,
+        before: Option<String>,
+        first: Option<i32>,
+        last: Option<i32>,
+    ) -> FieldResult<Connection<usize, Character, EmptyFields, EmptyFields>> {
+        let db = ctx.data_unchecked::<StarWars>();
+        services::human::get_humans(db, after, before, first, last).await
+    }
 }

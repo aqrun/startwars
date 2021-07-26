@@ -4,6 +4,17 @@ use crate::typings::{Episode};
 
 /// graphql 接口
 /// 抽象具有特定字段的集合的对象
+///
+/// 这里是 Interface 接口类型
+/// 差不多等同于 java 的 interface
+/// 表示 human 和 droid 都继承自 Character
+///
+/// 前端体现为
+///
+/// type Human implements Character;
+/// type Droid implements Character;
+///
+/// 接口中的字段数据会映射到具体的类型上
 #[derive(Interface)]
 #[graphql(
 field(name = "id", type = "&str"),
