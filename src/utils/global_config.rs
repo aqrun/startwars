@@ -13,10 +13,10 @@ lazy_static! {
 
         let mut map = HashMap::new();
 
-        map.insert(ADDRESS, var(ADDRESS).unwrap_or(DEFAULT_ADDRESS));
-        mpa.insert(PORT, var(PORT).unwrap_or(DEFAULT_PORT));
-        map.insert(GRAPHQL_PATH, var(GRAPHQL_PATH).unwrap_or(DEFAULT_GRAPHQL_PATH));
-        map.insert(GRAPHIQL_PATH, var(GRAPHIQL_PATH).unwrap_or(DEFAULT_GRAPHIQL_PATH));
+        map.insert(ADDRESS, var(ADDRESS).unwrap_or(DEFAULT_ADDRESS.into()));
+        map.insert(PORT, var(PORT).unwrap_or(DEFAULT_PORT.into()));
+        map.insert(GRAPHQL_PATH, var(GRAPHQL_PATH).unwrap_or(DEFAULT_GRAPHQL_PATH.into()));
+        map.insert(GRAPHIQL_PATH, var(GRAPHIQL_PATH).unwrap_or(DEFAULT_GRAPHIQL_PATH.into()));
 
         map
     };

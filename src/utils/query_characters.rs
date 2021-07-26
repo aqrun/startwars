@@ -1,6 +1,8 @@
 use async_graphql::{Object, Context, FieldResult};
 use async_graphql::connection::{query, Connection, Edge, EmptyFields};
-use crate::{Episode, Human, Droid, StarWars, Character};
+use crate::typings::{Episode};
+use crate::models::{Human, Droid, Character};
+use crate::dbs::StarWars;
 
 pub async fn query_characters(
     after: Option<String>,

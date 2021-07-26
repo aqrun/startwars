@@ -14,6 +14,6 @@ pub const GRAPHIQL_PATH: &'static str = "GRAPHIQL_PATH";
 /// 默认地址
 pub const DEFAULT_ADDRESS: &'static str = "0.0.0.0";
 /// 默认端口
-pub const DEFAULT_PORT: &'static str = "8000";
-pub const DEFAULT_GRAPHQL_PATH: &'static str = "graphql";
-pub const DEFAULT_GRAPHIQL_PATH: &'static str = "graphiql";
+pub const DEFAULT_PORT: &'static str = "8001";
+pub const DEFAULT_GRAPHQL_PATH: &'static str = "/";
+pub const DEFAULT_GRAPHIQL_PATH: &'static str = "/";

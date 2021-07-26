@@ -31,7 +31,7 @@ pub async fn build_schema() -> Schema<QueryRoot, MutationRoot, EmptySubscription
 
 pub async fn graphql(req: Request<State>) -> tide::Result {
     let schema = req.state().schema.clone();
-    let gql_resp = schema::execute(
+    let gql_resp = schema.execute(
         receive_json(req).await?
     ).await;
 

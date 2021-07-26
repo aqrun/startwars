@@ -13,16 +13,20 @@ impl QueryRoot {
         &self,
         ctx: &Context<'_>,
         #[graphql(
-        desc = "无值返回所有系列的角色，有值返回指定的系列角色"
+            desc = "无值返回所有系列的角色，有值返回指定的系列角色"
         )]
-        episode: Episode,
+        episode: Option<Episode>,
     ) -> GqlResult<Character> {
-        let db = ctx.data_unchecked::<StarWars>().into();
+        let db = ctx.data_unchecked::<StarWars>();
 
-        if episode == Episode::Empire {
-            services::human::get_hero(db)
+        if let Some(episode) = episode {
+            if episode == Episode::Empire {
+                services::human::get_hero(db).await
+            } else {
+                services::droid::get_hero(db).await
+            }
         } else {
-            services::droid::get_hero(db)
+            services::human::get_hero(db).await
         }
     }
 
@@ -31,8 +35,8 @@ impl QueryRoot {
         ctx: &Context<'_>,
         #[graphql(desc = "人类ID")]
         id: String,
-    ) -> GqlResult<Human> {
-        let db = ctx.data_unchecked::<StarWars>().into();
+    ) -> GqlResult<Character> {
+        let db = ctx.data_unchecked::<StarWars>();
         services::human::get_human_by_id(db, &id).await
     }
 

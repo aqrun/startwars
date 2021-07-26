@@ -1,3 +1,4 @@
+use async_graphql::{Interface};
 use super::{Human, Droid};
 use crate::typings::{Episode};
 
@@ -8,7 +9,7 @@ use crate::typings::{Episode};
 field(name = "id", type = "&str"),
 field(name = "name", type = "&str"),
 field(name = "friends", type = "Vec<Character>"),
-field(name = "appears_in", type = "&'ctx [Episode]"),
+field(name = "appears_in", type = "Vec<Episode>"),
 )]
 pub enum Character {
     // 人类

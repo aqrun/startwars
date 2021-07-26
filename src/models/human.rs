@@ -33,17 +33,17 @@ impl Human {
         self.friends
             .iter()
             .map(|id| {
-                db.chars[id.into()].to_droid()
+                db.chars[*id].to_droid().into()
             })
             .collect()
     }
 
-    pub async fn appears_in<'a>(&self, ctx: &'a Context<'_>) -> &'a [Episode] {
-        self.appears_in.into()
+    pub async fn appears_in(&self) -> Vec<Episode> {
+        self.appears_in.clone()
     }
 
-    pub async fn home_planet<'a>(&self, ctx: &'a Context<'_>) -> &'a Option<&'a str> {
-        self.home_planet.into()
+    pub async fn home_planet(&self) -> Option<&str> {
+        self.home_planet
     }
 
 }

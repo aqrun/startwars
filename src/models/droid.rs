@@ -1,5 +1,4 @@
 use serde::{Serialize, Deserialize};
-
 use async_graphql::{Object, Context};
 use crate::dbs::StarWars;
 use crate::typings::{Episode};
@@ -25,15 +24,15 @@ pub struct Droid {
 #[Object]
 impl Droid {
     pub async fn id(&self) -> &str {
-        self.id.as_str()
+        self.id
     }
 
     pub async fn en_name(&self) -> &str {
-        self.en_name.as_str()
+        self.en_name
     }
 
     pub async fn name(&self) -> &str {
-        self.name.as_str()
+        self.name
     }
 
     pub async fn friends(&self, ctx: &Context<'_>) -> Vec<Character> {
@@ -41,16 +40,16 @@ impl Droid {
         self.friends
             .iter()
             .map(|id| {
-                db.chars[id.into()].to_droid()
+                db.chars[*id].to_droid().into()
             })
             .collect()
     }
 
-    pub async fn appears_in<'a>(&self) -> &'a [Episode] {
-        self.appears_in.into()
+    pub async fn appears_in(&self) -> Vec<Episode> {
+        self.appears_in.clone()
     }
 
-    pub async fn primary_function<'a>(&self) -> &'a Option<&'a str> {
-        self.primary_function.into()
+    pub async fn primary_function(&self) -> Option<&str> {
+        self.primary_function
     }
 }
