@@ -2,6 +2,7 @@
 /// .env 环境变量参数配置
 ///
 
+pub const DATABASE_URL: &'static str = "DATABASE_URL";
 /// http 地址
 pub const ADDRESS: &'static str = "ADDRESS";
 /// 端口

@@ -21,9 +21,9 @@ pub struct StarWars {
 
 impl StarWars {
     #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
+    pub fn new() {
         let mut chars = Slab::new();
-
+/*
         let luke = chars.insert(StarWarsChar {
             id: "1000",
             name: "卢克·天行者",
@@ -128,6 +128,8 @@ impl StarWars {
             human_data,
             droid_data,
         }
+        */
+
     }
 
     pub fn human(&self, id: &str) -> Option<usize> {
