@@ -1,3 +1,5 @@
+
+
 create table users (
     id SERIAL PRIMARY KEY,
     name VARCHAR(128) NOT NULL,
@@ -15,6 +17,7 @@ COMMENT ON COLUMN users.appears_in is '用户出演的电影系统逗号隔开';
 CREATE TABLE user_friends (
     id INTEGER NOT NULL,
     friend_id INTEGER NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id, friend_id)
 );
 COMMENT ON COLUMN user_friends.id is '关联 users.id';

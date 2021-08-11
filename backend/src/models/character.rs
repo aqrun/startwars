@@ -2,6 +2,7 @@ use chrono::NaiveDateTime;
 use async_graphql::{Interface};
 use super::{Human, Droid};
 use crate::typings::{Episode};
+use serde::{Serialize, Deserialize};
 
 /// graphql 接口
 /// 抽象具有特定字段的集合的对象
@@ -32,7 +33,6 @@ pub enum Character {
 
 /// 角色
 #[derive(Queryabel)]
-#[table_name="characters"]
 pub struct StarWarsChar {
     pub id: i32,
     // 姓名
@@ -51,32 +51,10 @@ pub struct StarWarsChar {
     pub created_at: NaiveDateTime,
 }
 
-impl StarWarsChar {
-    // pub fn to_droid(&self) -> Droid {
-    //     Droid {
-    //         id: self.id,
-    //         name: self.name,
-    //         en_name: self.en_name,
-    //         friends: self.friends.clone(),
-    //         appears_in: self.appears_in.clone(),
-    //         primary_function: self.primary_function,
-    //     }
-    // }
-
-    // pub fn to_human(&self) -> Human {
-    //     Human {
-    //         id: self.id,
-    //         name: self.name,
-    //         en_name: self.en_name,
-    //         friends: self.friends.clone(),
-    //         appears_in: self.appears_in.clone(),
-    //         home_planet: self.home_planet,
-    //     }
-    // }
-}
 
 #[derive(Queryabel)]
-pub struct Users{
+#[table_name="users"]
+pub struct User {
     pub id: i32,
     // 姓名
     pub name: String,
@@ -96,7 +74,7 @@ pub struct Users{
 
 #[derive(Queryable, Insertable)]
 #[table_name="user_friends"]
-pub struct UserFriends {
+pub struct UserFriend {
     pub id: i32,
     pub friend_id: i32,
 }
@@ -107,7 +85,6 @@ pub struct NewUser {
     pub name: String,
     pub en_name: String,
     pub cha_type: String,
-    pub friends: String,
     pub appears_in: String,
     pub home_planet: String,
     pub primary_function: String,
